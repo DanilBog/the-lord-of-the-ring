@@ -45,14 +45,6 @@ export class QuoteComponent implements OnInit, AfterViewInit {
         });
         return quote;
       }),
-      /*switchMap((quote) =>  {
-        quote.docs.forEach(item => {
-          item.character = 
-        this.lordService.getCharacter(item.character).subscribe(
-          (char) => ite
-        )
-
-      }),*/
       map(quotes =>{
         console.log('quotes.docs', quotes.docs);
         this.resultsLength = quotes.pages;

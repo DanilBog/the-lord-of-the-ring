@@ -22,8 +22,8 @@ export class LordService {
       url = this.urlQuote + page + '&limit=5';
     }
     else {
-      page = 1;
-      url = 'https://the-one-api.dev/v2/movie/' + movie + '/quote?limit=5' ;
+      page++;
+      url = 'https://the-one-api.dev/v2/movie/' + movie + '/quote?page=' + page + '&limit=5' ;
     }
     
     

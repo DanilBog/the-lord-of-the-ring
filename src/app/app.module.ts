@@ -6,17 +6,22 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { QuoteComponent } from './quote/quote.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuoteComponent
+    QuoteComponent,
+
   ],
   imports: [
     BrowserModule,
     NoopAnimationsModule,
     MatTableModule,
     HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

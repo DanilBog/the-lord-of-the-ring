@@ -7,15 +7,17 @@ import { Quotes } from './quote';
   providedIn: 'root'
 })
 export class LordService {
-  urlQuote = 'https://the-one-api.dev/v2/quote?page=1&limit=5';
+  //urlQuote = 'https://the-one-api.dev/v2/quote?page=1&limit=5';
+  urlQuote = 'https://the-one-api.dev/v2/quote?page=';
   urlMovie = 'https://the-one-api.dev/v2/movie/';
   urlCharacter = 'https://the-one-api.dev/v2/character/';
   constructor(private http: HttpClient ) {}
 
 
-  getQuote(): Observable <Quotes>{
+  getQuote(page:string): Observable <Quotes>{
     //console.log('Ответ от https://the-one-api.dev/v2/quote/1');
-    return this.http.get<Quotes>(this.urlQuote);
+    const url = this.urlQuote + page + '&limit=10';
+    return this.http.get<Quotes>(url);
   }
 
   getMovie(movie:number): Observable <any> {

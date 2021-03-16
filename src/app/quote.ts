@@ -1,5 +1,5 @@
 export interface Quote {
-    _id: number;
+    _id: string;
     dialog: string;
     movie: string;
     character: string;
@@ -10,4 +10,14 @@ export interface Quotes {
     total: number;
     limit: number;
     pages: number;
+  }
+export interface Movie {
+    _id: string;
+    academyAwardNominations: number;
+    academyAwardWins: number;
+    boxOfficeRevenueInMillions: number;
+    budgetInMillions: number;
+    name: string;
+    rottenTomatesScore: number;
+    runtimeInMinutes: number;
   }

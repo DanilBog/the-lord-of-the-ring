@@ -6,6 +6,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { QuoteComponent } from './quote/quote.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     NoopAnimationsModule,
     MatTableModule,
     HttpClientModule,
+    MatPaginatorModule,
+    MatSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

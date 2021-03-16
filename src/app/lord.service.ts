@@ -7,26 +7,39 @@ import { Quotes } from './quote';
   providedIn: 'root'
 })
 export class LordService {
-  urlQuote = 'https://the-one-api.dev/v2/quote?page=1&limit=5';
-  urlMovie = 'https://the-one-api.dev/v2/movie/';
+  // urlQuote = 'https://the-one-api.dev/v2/quote?page=1&limit=5';
+  urlQuote = 'https://the-one-api.dev/v2/quote?page=';
+  urlMovie = 'https://the-one-api.dev/v2/movie?';
   urlCharacter = 'https://the-one-api.dev/v2/character/';
   constructor(private http: HttpClient ) {}
 
 
-  getQuote(): Observable <Quotes>{
-    //console.log('Ответ от https://the-one-api.dev/v2/quote/1');
-    return this.http.get<Quotes>(this.urlQuote);
+  getQuote( page: number, movie: string ): Observable <Quotes>{
+    // console.log('Ответ от https://the-one-api.dev/v2/quote/1');
+    let url;
+    if (movie == 'all'){
+      page++;
+      url = this.urlQuote + page + '&limit=5';
+    }
+    else {
+      page = 1;
+      url = 'https://the-one-api.dev/v2/movie/' + movie + '/quote?limit=5' ;
+    }
+    
+    
+    return this.http.get<Quotes>(url);
   }
 
-  getMovie(movie:number): Observable <any> {
-    const url = this.urlMovie + movie;
-
-    return this.http.get<any>(url);
+  getMovie(): Observable <any> {
+    // const url = this.urlMovie;
+    //console.log('Array of movie:', movie);
+    // let idToMovie = movie.map(id => {const url = this.urlMovie + id; this.http.get<any>(url)});
+    return this.http.get<any>(this.urlMovie);
   }
 
-  getCharacter(character:number): Observable <any> {
-    const url = this.urlCharacter + character;
-
+  getCharacter(char: string): Observable <any> {
+    // const url = this.urlCharacter + character;
+    const url = this.urlCharacter + char;
     return this.http.get<any>(url);
   }
 

@@ -17,7 +17,7 @@ export class LordService {
   getQuote( page: number, movie: string ): Observable <Quotes>{
     // console.log('Ответ от https://the-one-api.dev/v2/quote/1');
     let url;
-    if (movie == 'all'){
+    if (movie === 'all'){
       page++;
       url = this.urlQuote + page + '&limit=5';
     }
@@ -25,14 +25,13 @@ export class LordService {
       page++;
       url = 'https://the-one-api.dev/v2/movie/' + movie + '/quote?page=' + page + '&limit=5' ;
     }
-    
-    
+
     return this.http.get<Quotes>(url);
   }
 
   getMovie(): Observable <any> {
     // const url = this.urlMovie;
-    //console.log('Array of movie:', movie);
+    // console.log('Array of movie:', movie);
     // let idToMovie = movie.map(id => {const url = this.urlMovie + id; this.http.get<any>(url)});
     return this.http.get<any>(this.urlMovie);
   }
@@ -40,7 +39,7 @@ export class LordService {
   getCharacter(char: string): Observable <any> {
     // const url = this.urlCharacter + character;
     const url = this.urlCharacter + char;
-    //console.log('Request to /character/', url);
+    // console.log('Request to /character/', url);
     return this.http.get<any>(url);
   }
 

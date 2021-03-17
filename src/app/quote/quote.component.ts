@@ -30,46 +30,47 @@ export class QuoteComponent implements OnInit, AfterViewInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+
   @ViewChild('movieSelect') selector: MatSelect; // Нужно добавить чайлд селектор и отслеживать изменение его состояния
    // Далее this.PagedIssues = merge( this.selector.selectionChange, this.paginator.page)
-    
+
   ngAfterViewInit(): void {
     this.PagedIssues = merge(this.selector.selectionChange, this.paginator.page).pipe(
       startWith({}),
       switchMap( () => this.lordService.getQuote(this.paginator.pageIndex, this.selected)),
-      map((quote) => {//const char = of(quote.docs)  
-                      const char = quote.docs.map(item => item.character);
-                     // const char = quote.docs.map(item => this.lordService.getCharacter(item.character));
-                      console.log('Array char from quote.docs:', char);
-                      this.lordService.getCharacter(char[0]).subscribe(
-                        (m) => console.log('Данные от getCharacter',m.docs[0].name)
-                      );
-                      console.log
-                      
-                      forkJoin({
-                       1: this.lordService.getCharacter(char[4]),
-                      }).subscribe(console.log);
-                      
+      switchMap((quote) => {
+        // создаем массив char состоящий из id персонажей
+        const char = quote.docs.map(item => item.character);
+        console.log('Array char from quote.docs:', char);
+        // из forkJoin получим массив[5] объектов, в которых есть имена персонажей ch[0-4].docs[0].name
+        return forkJoin(
+          char.map(item => this.lordService.getCharacter(item))   // массив запросов к getCharacter
+          ).pipe(
+            // обрабатывем цитаты подставляя вместо id имя персонажа
+            map( (nameOfChar) => {
+              console.log('Aray from forkJoin: ', nameOfChar);
+              quote.docs.forEach(item => {
 
+              const ch = nameOfChar.find( character => character.docs[0]._id === item.character);
 
-
-                      return quote;
+              item.character = ch.docs[0].name; });
+              return quote;
+            }));
       }),
       map((quote) =>  {
         quote.docs.forEach(item => {
           const m = this.movie.find( mov => mov._id === item.movie ); // в m.name название фильма
-          item.movie = m.name;      // переписываем цифровое значение на название фильма 
+          item.movie = m.name;      // переписываем цифровое значение на название фильма
         });
         return quote;
       }),
-      map(quotes =>{
+      map(quotes => {
         console.log('quotes.docs', quotes.docs);
         this.resultsLength = quotes.pages;
         return quotes.docs; })
     );
 
-    
+
     /*this.lordService.getQuote('1').subscribe(
       (quote) => {
         this.quote = quote;

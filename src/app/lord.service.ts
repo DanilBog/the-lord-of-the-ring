@@ -40,6 +40,7 @@ export class LordService {
   getCharacter(char: string): Observable <any> {
     // const url = this.urlCharacter + character;
     const url = this.urlCharacter + char;
+    //console.log('Request to /character/', url);
     return this.http.get<any>(url);
   }
 

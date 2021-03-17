@@ -10,22 +10,18 @@
 <p>You selected: {{selected}}</p>
 <div class="mat-elevation-z8">
 <table mat-table [dataSource]="PagedIssues" >
-
     <ng-container matColumnDef="character">
       <th mat-header-cell *matHeaderCellDef> Character </th>
       <td mat-cell *matCellDef="let element"> {{element.character}} </td>
     </ng-container>
-
     <ng-container matColumnDef="dialog">
       <th mat-header-cell *matHeaderCellDef> Dialog </th>
       <td mat-cell *matCellDef="let element"> {{element.dialog}} </td>
     </ng-container>
-
       <ng-container matColumnDef="movie">
         <th mat-header-cell *matHeaderCellDef> Movie </th>
         <td mat-cell *matCellDef="let element"> {{element.movie}} </td>
       </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
